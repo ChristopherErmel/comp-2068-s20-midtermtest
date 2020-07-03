@@ -64,6 +64,7 @@ exports.edit = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
+        req.flash('danger', 'Reservation could NOT be edited!');
     }
 };
 
@@ -91,9 +92,11 @@ exports.update = async (req, res) => {
 exports.delete = async (req, res) => {
     try {
         await Reservation.deleteOne({_id: req.body.id});
-
+        req.flash('success', 'Reservation Deleted!');
         res.redirect('/reservations');
     } catch (error) {
         console.log(error);
+        req.flash('success', 'Reservation could NOT be deleted!');        
+        res.redirect('/reservations');
     }
 }
