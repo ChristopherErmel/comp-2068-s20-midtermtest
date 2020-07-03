@@ -56,8 +56,10 @@ exports.create = async (req, res) => {
 exports.edit = async (req, res) => {
     try {
         const reservation = await Reservation.findById(req.params.id);
+        const roomTypes = Reservation.schema.paths.roomType.enumValues;
         res.render(`${viewPath}/edit`, {
             pageTitle: 'Edit!',
+            roomTypes: roomTypes,
             formData: reservation
         });
     } catch (error) {
@@ -66,7 +68,24 @@ exports.edit = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
+    try {
+        const {user : email } = req.session.passport;
+        const user = await User.findOne({email : email});
+        let reservation = await Reservation.findById(req.body.id);
+        if(!reservation) throw new Error('Reservation could not be found!');
 
+        const attributes = {user: user._id, ...req.body}
+
+        await Reservation.validate(attributes);
+        await Reservation.updateOne({_id: req.body.id}, req.body);
+
+        req.flash('success', 'The reservation was updated!');
+        res.redirect(`/reservations/${req.body.id}`);
+
+    } catch (error) {
+        req.flash('danger', 'Reservation could NOT be updated!');
+        res.redirect(`/reservations/${req.body.id}/edit`);
+    }
 };
 
 exports.delete = async (req, res) => {
