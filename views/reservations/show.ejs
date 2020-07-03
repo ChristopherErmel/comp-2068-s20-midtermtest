@@ -1,30 +1,34 @@
 <%- include ('../partials/header') %>
 
 <div class="container my-5">
-  <header>
-    <h1>
-      Reservation for <%= reservation.restaurant %>
-    </h1>
-  </header>
-  <hr>
-  <div>
-    <p>
-      <strong>For:</strong>&nbsp;<%= reservation.user.fullname %>
+  <div class="card my-5">
+    <div class="card-header">
+      <h5 class="card-title">
+        Reservation for: <%= // user's fullname %>
+      </h5>
+    </div>
+
+    <div class="card-body">
+      <p class="card-text">
+        Your reservation is from <strong><%= // check-in date %></strong> to <strong><%= // check-out date %></strong> for <%= // number of occupants %> <%= // number of occupants > 1 ? 'people' : 'person' %>.
+      </p>
+
+      <p>
+        Your room is a <%= // room type %>.
+      </p>
+    </div>
+
+    <div class="card-footer text-muted">
+      <a href="/reservations/<%= // reservation id %>/edit"><i class="fa fa-edit">&nbsp;</i>Change your reservation</a>
       <br>
-      <strong>At:</strong>&nbsp;<%= reservation.dateAndTime %>
-    </p>
-  </div>
-  <hr>
-  <div>
-    <a href="/reservations/<%= reservation.id %>/edit"><i class="fa fa-edit">&nbsp;</i>Change your reservation</a>
-    <br>
-    <form class="form-inline" action="/reservations/delete" method="post" onsubmit="return confirm('Are you sure you want to cancel your reservation?');">
-      <input type="hidden" value="<%= reservation.id %>" name="id">
-      <button class="delete" type="submit">
-        <i class="fa fa-trash">&nbsp;</i>
-        Cancel your reservation
-      </button>
-    </form>
+      <form class="form-inline" action="/reservations/delete" method="post" onsubmit="return confirm('Are you sure you want to cancel your reservation?');">
+        <input type="hidden" value="<%= // reservation id %>" name="id">
+        <button class="delete" type="submit">
+          <i class="fa fa-trash">&nbsp;</i>
+          Cancel your reservation
+        </button>
+      </form>
+    </div>
   </div>
 </div>
 
