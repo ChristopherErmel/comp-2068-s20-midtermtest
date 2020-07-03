@@ -8,7 +8,7 @@ const Reservation = require('../models/reservation');
 exports.index = async (req, res) => {
     try {
         //get all the reservations
-        const reservations = await Reservation.find().sort({updatedAt: 'desc'});
+        const reservations = await Reservation.find().populate('user').sort({updatedAt: 'desc'});
         res.render(`${viewPath}/index`, {
             pageTitle: 'Reservations',
             reservations: reservations
@@ -21,7 +21,7 @@ exports.index = async (req, res) => {
 
 exports.show = async (req, res) => {
     try {
-        const reservation = await (await Reservation.findById(req.params.id)).populate('user');
+        const reservation = (await Reservation.findById(req.params.id).populate('user'));
         res.render(`${viewPath}/show`, {
             pageTitle: 'Show!',
             reservation: reservation

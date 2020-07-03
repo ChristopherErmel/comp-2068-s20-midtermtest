@@ -12,13 +12,13 @@
       <div class="card my-5">
         <div class="card-header">
           <h5 class="card-title">
-            Reservation for: <%= reservation.fullName// user's fullname %>
+            Reservation for: <%= reservation.user.fullname// user's fullname %>
           </h5>
         </div>
 
         <div class="card-body">
           <p class="card-text">
-            Your reservation is from <strong><%= reservation.checkIn// check-in date %></strong> to <strong><%= reservation.checkOut// check-out date %></strong> for <%= // number of occupants %> <%= // number of occupants > 1 ? 'people' : 'person' %>.
+            Your reservation is from <strong><%= reservation.checkIn// check-in date %></strong> to <strong><%= reservation.checkOut// check-out date %></strong> for <%= reservation.numOfOccupants// number of occupants %> <%=  reservation.numOfOccupants > 1 ? 'People' : 'Person'// number of occupants > 1 ? 'people' : 'person' %>.
           </p>
 
           <p>
