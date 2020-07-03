@@ -1,4 +1,4 @@
-// You need to complete this controller with the required 7 actions
+// You need to complete this controller with the required 7 actions.
 const viewPath = ('reservations');
 
 const User = require('../models/user');
